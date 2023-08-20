@@ -1,0 +1,26 @@
+# serverless.yml
+
+service: IntegratedRecruitmentPortal
+provider:
+  name: aws
+  runtime: nodejs14.x # Node JS version
+  memorySize: 1024 # 1024 # 512
+  timeout: 30
+  stage: dev #development # #uat
+  region: ca-central-1 # AWS region same in uat and development
+  apiGateway:
+    binaryMediaTypes:
+      - "multipart/form-data"
+functions:
+  graphql:
+    # this is formatted as <FILENAME>.<HANDLER>
+    handler: src/index.graphqlHandler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true

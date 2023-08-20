@@ -1,0 +1,865 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model company {
+//   company_id          String               @id(map: "PK_company_1") @default(uuid()) @db.Uuid
+//   company_name        String               @unique(map: "UNIQUE_company_3") @db.VarChar(255)
+//   GST_number          String?              @unique(map: "Unique_GST") @db.VarChar(15)
+//   corporation_no      String?              @unique(map: "unique_corporation") @db.VarChar(255)
+//   about_us            String?              @db.VarChar(500)
+//   industry_type_id    String?              @db.Uuid
+//   is_company_approved Boolean?             @default(false)
+//   subscription_id     String?              @db.Uuid
+//   is_payment_done     Boolean?             @default(false)
+//   created_at          DateTime?            @default(now()) @db.Timestamp(6)
+//   updated_at          DateTime?            @updatedAt @db.Timestamp(6)
+//   deleted_at          DateTime?            @db.Timestamp(6)
+//   is_deleted          Boolean?             @default(false)
+//   industry_type       industry_type?       @relation(fields: [industry_type_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_39")
+//   subscription_plan   subscription_plan?   @relation(fields: [subscription_id], references: [subscription_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_subscription_plan")
+//   company_address     company_address[]
+//   company_channel     company_channel[]
+//   company_contact_no  company_contact_no[]
+//   company_document    company_document[]
+//   company_email       company_email[]
+//   company_portfolio   company_portfolio[]
+//   department          department[]
+//   designation         designation[]
+//   project             project[]
+//   user                user[]
+// }
+
+model Users {
+  user_id                String                   @id(map: "PK_user_1") @default(uuid()) @db.Uuid
+  user_name              String?                  @db.VarChar(25)
+  first_name             String?                  @db.VarChar(255)
+  last_name              String?                  @db.VarChar(255)
+  email                  String                   @db.VarChar(255)
+  password               String
+  mobile_no              String?                  @db.VarChar(25)
+  is_active              Boolean?                 @default(true)
+  is_deleted             Boolean?                 @default(false)
+  deleted_at             DateTime?                @db.Timestamp(6)
+  created_at             DateTime?                @default(now()) @db.Timestamp(6)
+  updated_at             DateTime?                @updatedAt @db.Timestamp(6)
+  is_email_verified      Boolean?                 @default(false)
+  is_mobile_verified     Boolean?                 @default(false)
+  created_by             String?                  @db.Uuid
+  updated_by             String?                  @db.Uuid
+  deleted_by             String?                  @db.Uuid
+  middle_name            String?                  @db.VarChar(255)
+  date_of_birth          DateTime?                @db.Timestamp(6)
+  gender                 String?                  @db.VarChar(25)
+  profile_picture        String?                  @db.VarChar(255)
+  last_login             DateTime?                @db.Timestamp(6)
+}
+
+
+
+model Jobs {
+    job_id                            Int                        @id 
+    company_name                      String                     @db.VarChar(255)
+    company_logo                      String?                    @db.VarChar(500)
+    company_details_phone_number      String                     @db.VarChar(255)
+    website_link                      String?                    @db.VarChar(500)
+    address                           String   @db.VarChar(500)
+    city                              String   @db.VarChar(255)
+    state                             String   @db.VarChar(255)
+    country                           String   @db.VarChar(255)
+    zip_code                          String   @db.VarChar(150)
+    employment_type                   String   @db.VarChar(255)
+
+    first_name                        String   @db.VarChar(255)
+    middle_name                       String?  @db.VarChar(255)
+    last_name                         String  @db.VarChar(255)
+    email                             String  @db.VarChar(255)
+    company_admin_contact_number      String   @db.VarChar(255)
+   
+  //  Job Description
+
+    // title                             String   @db.VarChar(255)
+    // category                          String   @db.VarChar(255)
+    // description                       String   @db.VarChar(1000)
+    // salary                            Float 
+    // no_of_resources_required          Int
+    // experience                        String   @db.VarChar(255)
+    // job_type                          String   @db.VarChar(255)
+    // required_qualification            String   @db.VarChar(255)
+    // start_date                        DateTime?                @db.Timestamp(6)
+    // expiry_date                       DateTime?                @db.Timestamp(6)
+    // job_location                      String   @db.VarChar(500)
+
+    // Replace with
+    // language                           String   @db.VarChar(255)
+    // country                            String   @db.VarChar(255)
+    // company_name                       String   @db.VarChar(255)
+    // location                           String   @db.VarChar(500)
+    // working_location                   String   @db.VarChar(500)
+    
+    // job_sector                         String   @db.VarChar(255)
+    // job_description                    String   @db.VarChar(500)
+    // required_qualification             String   @db.VarChar(1000)
+    // start_date                        DateTime? @db.Timestamp(6)
+    // start_time                        DateTime? @db.Timestamp(6)
+    // start_time_zone                   String?   
+    // end_time                          DateTime? @db.Timestamp(6)
+    // end_time_zone                     String?   @db.VarChar(255)
+    // pay_rate                          Float?
+    // pay_rate_currency                 String?   @db.VarChar(255)
+
+        job_title                          String?   @db.VarChar(255)
+        job_type                          String   @db.VarChar(255)
+        additional_details                    String?   @db.VarChar(5000)
+
+        no_of_resources_required          String?
+        job_description_file              String?   @db.VarChar(500)
+
+
+
+ 
+
+
+    // safety_shoes                      Boolean?                @default(false)
+    // safety_gloves                     Boolean?                @default(false)
+    // safety_jacket                     Boolean?                @default(false)
+
+
+  
+    is_posted                         Boolean?  @default(false)
+
+
+     is_deleted                      Boolean?                @default(false)
+     deleted_at                      DateTime?               @db.Timestamp(6)
+     created_at                      DateTime?               @default(now()) @db.Timestamp(6)
+     updated_at                      DateTime?                @updatedAt @db.Timestamp(6)
+
+      // jobRequirements      JobRequirements[]
+      // jobkills            JobSkills[]
+
+      // agencyJobPost   AgencyJobPosts? @relation(fields: [job_id], references: [job_id])
+
+    //  jobMustToHaveSkills            JobMustToHaveSkills[]
+    //  jobNiceToHaveSkills            JobNiceToHaveSkills[]
+    //  jobAdditionalSkills            JobAdditionalSkills[]
+    //  jobAdditionalRequirements      JobAdditionalRequirements[]
+
+}
+
+
+// model JobRequirements{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs                Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+
+// model JobSkills{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs                  Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+
+
+// model JobMustToHaveSkills{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+
+// model JobNiceToHaveSkills{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+
+// model JobAdditionalSkills{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+// model JobAdditionalRequirements{
+//   guid                String    @id @default(uuid()) @db.Uuid
+//   job_id  String?     @db.Uuid  
+//   description         String    @db.VarChar(255)
+
+//   jobs Jobs?          @relation(fields: [job_id], references: [job_id])
+// }
+
+
+
+model AgencyJobPosts {
+
+    agency_job_post_job_id             Int                        @id 
+
+    job_id                             Int?  
+    employment_type                   String   @db.VarChar(255)
+    language                           String   @db.VarChar(255)
+    country                            String   @db.VarChar(255)
+    company_name                       String   @db.VarChar(255)
+    location                           String   @db.VarChar(500)
+    working_location                   String?   @db.VarChar(500)
+    job_title                          String   @db.VarChar(255)
+    job_sector                         String   @db.VarChar(255)
+    job_description                    String   @db.VarChar(5000)
+    required_qualification             String?   @db.VarChar(1000)
+    
+    start_date                        DateTime? @db.Timestamp(6)
+    start_time                        DateTime? @db.Timestamp(6)
+    start_time_zone                   String?   
+    end_time                          DateTime? @db.Timestamp(6)
+    end_time_zone                     String?   @db.VarChar(255)
+    pay_rate                          Float?
+    pay_rate_currency                 String?   @db.VarChar(255)
+    no_of_resources_required          Int?
+   
+    save_as_a_template               Boolean    @default(false)
+    is_deleted                      Boolean?                 @default(false)
+    deleted_at                      DateTime?                @db.Timestamp(6)
+    created_at                      DateTime?                @default(now()) @db.Timestamp(6)
+    updated_at                      DateTime?                @updatedAt @db.Timestamp(6)
+
+    latitude                        Float?
+    longitude                       Float?
+
+    safety_shoes                      Boolean?                @default(false)
+    safety_gloves                     Boolean?                @default(false)
+    safety_jacket                     Boolean?                @default(false)
+
+      priority                       Int?
+      candidates                     Candidates[]
+      agencyJobPostRequirements      AgencyJobPostRequirements[]
+      agencyJobPostskills            AgencyJobPostskills[]
+      // job                            Jobs?
+}
+
+model AgencyJobPostRequirements{
+  guid                    String    @id @default(uuid()) @db.Uuid
+  agency_job_post_job_id  Int?     
+  description             String    @db.VarChar(255)
+
+  agencyJobPosts AgencyJobPosts? @relation(fields: [agency_job_post_job_id], references: [agency_job_post_job_id])
+}
+
+
+model AgencyJobPostskills{
+  guid                    String         @id @default(uuid()) @db.Uuid
+  agency_job_post_job_id  Int?   
+  description             String         @db.VarChar(255)
+  agencyJobPosts AgencyJobPosts?     @relation(fields: [agency_job_post_job_id], references: [agency_job_post_job_id])
+}
+
+
+model Candidates {
+    candidate_id    Int                        @id 
+
+    agency_job_post_job_id Int?   
+    first_name      String    @db.VarChar(255)
+    middle_name     String?   @db.VarChar(255)
+    last_name       String?   @db.VarChar(255)
+    email           String    @db.VarChar(255)
+    phone_number    String    @db.VarChar(255)
+    city            String    @db.VarChar(255)
+    job_sector      String    @db.VarChar(255)
+    resume          String?   @db.VarChar(500)
+    is_job_link     Boolean?  @default(true)    
+
+    is_deleted      Boolean?                 @default(false)
+    deleted_at      DateTime?                @db.Timestamp(6)
+    created_at      DateTime?                @default(now()) @db.Timestamp(6)
+    updated_at      DateTime?                @updatedAt @db.Timestamp(6) 
+
+    agencyJobPosts AgencyJobPosts? @relation(fields: [agency_job_post_job_id], references: [agency_job_post_job_id])
+}
+
+
+model JobSeekerFAQs{
+  guid            String    @id @default(uuid()) @db.Uuid
+  question        String    @db.VarChar(5000)
+  answer          String    @db.VarChar(5000)
+}
+
+
+
+model EmployerFAQs{
+  guid            String    @id @default(uuid()) @db.Uuid
+  question        String    @db.VarChar(5000)
+  answer          String    @db.VarChar(5000)
+}
+
+
+
+
+model UniqueKeyCountCandidates{
+    id                  Int     @unique @default(autoincrement())
+    counter             Int
+    start_from          Int
+}
+
+model UniqueKeyCountAgencyJobPosts{
+    id                  Int     @unique @default(autoincrement())
+    counter             Int
+    start_from          Int
+}
+
+
+model UniqueKeyCountJobs{
+    id                  Int     @unique @default(autoincrement())
+    counter             Int
+    start_from          Int
+}
+
+
+
+
+
+
+//   @@unique([user_name, email], map: "UNIQUE_user_2")
+// }
+
+// model address_type {
+//   guid              String            @id(map: "PK_address_type_1") @db.Uuid
+//   address_type_name String            @db.VarChar(255)
+//   company_address   company_address[]
+//   user_address      user_address[]
+// }
+
+// model channel {
+//   channel_id      String            @id(map: "PK_channel_1") @db.Uuid
+//   channel_name    String            @db.VarChar(25)
+//   created_at      DateTime?         @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime?         @updatedAt @db.Timestamp(6)
+//   deleted_at      DateTime?         @db.Timestamp(6)
+//   is_deleted      Boolean?          @default(false)
+//   company_channel company_channel[]
+//   user_channel    user_channel[]
+// }
+
+// model company_address {
+//   guid            String       @id(map: "PK_company_address_1") @default(uuid()) @db.Uuid
+//   country         String       @db.VarChar(255)
+//   province        String       @db.VarChar(255)
+//   city            String       @db.VarChar(255)
+//   postal_zip_code String       @map("postal/zip_code") @db.VarChar(25)
+//   street_no       String?      @db.VarChar(25)
+//   created_at      DateTime?    @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime?    @updatedAt @db.Timestamp(6)
+//   deleted_at      DateTime?    @db.Timestamp(6)
+//   is_deleted      Boolean?     @default(false)
+//   company_id      String       @db.Uuid
+//   address_type_id String       @db.Uuid
+//   address_type    address_type @relation(fields: [address_type_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "REL_38")
+//   company         company      @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_37")
+// }
+
+// model company_channel {
+//   guid       String    @id(map: "PK_company_channel_1") @default(uuid()) @db.Uuid
+//   channel_id String    @db.Uuid
+//   url        String    @db.VarChar(255)
+//   created_at DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at DateTime? @db.Timestamp(6)
+//   is_deleted Boolean?  @default(false)
+//   company_id String    @db.Uuid
+//   channel    channel   @relation(fields: [channel_id], references: [channel_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_36")
+//   company    company   @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_35")
+// }
+
+// model company_contact_no {
+//   guid              String    @id(map: "PK_company_contact_no_1") @default(uuid()) @db.Uuid
+//   contact_no        String    @db.VarChar(255)
+//   is_primary        Boolean?  @default(false)
+//   created_at        DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at        DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at        DateTime? @db.Timestamp(6)
+//   is_deleted        Boolean?  @default(false)
+//   company_id        String    @db.Uuid
+//   contact_extension String?   @db.VarChar(255)
+//   contact_type      String?   @db.VarChar(255)
+//   company           company   @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_42")
+// }
+
+// model company_document {
+//   company_document_id String   @id(map: "PK_company_document_1") @default(uuid()) @db.Uuid
+//   document_url        String   @db.VarChar(500)
+//   extension           String   @db.VarChar(25)
+//   company_id          String?  @db.Uuid
+//   filename            String   @db.VarChar(250)
+//   description         String?  @db.VarChar(255)
+//   status              String?  @db.VarChar(255)
+//   company             company? @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_company_document")
+// }
+
+// model company_email {
+//   guid             String    @id(map: "PK_company_email_1") @default(uuid()) @db.Uuid
+//   email            String    @db.VarChar(255)
+//   is_primary       Boolean?  @default(false)
+//   created_at       DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at       DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at       DateTime? @db.Timestamp(6)
+//   is_deleted       Boolean?  @default(false)
+//   company_id       String    @db.Uuid
+//   email_department String?   @db.VarChar(255)
+//   company          company   @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_40")
+// }
+
+// model company_portfolio {
+//   guid       String    @id(map: "PK_company_portfolio_1") @default(uuid()) @db.Uuid
+//   company_id String    @db.Uuid
+//   url        String    @db.VarChar(255)
+//   is_image   Boolean
+//   created_at DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at DateTime? @db.Time(6)
+//   is_deleted Boolean?  @default(false)
+//   filename   String    @db.VarChar(255)
+//   company    company   @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_41")
+// }
+
+// model industry_type {
+//   guid               String           @id(map: "PK_industry_type_1") @default(uuid()) @db.Uuid
+//   industry_type_name String           @db.VarChar(255)
+//   created_at         DateTime?        @default(now()) @db.Timestamp(6)
+//   updated_at         DateTime?        @updatedAt @db.Timestamp(6)
+//   deleted_at         DateTime?        @db.Timestamp(6)
+//   is_deleted         Boolean?         @default(false)
+//   company            company[]
+//   project            project[]
+//   user_eductaion     user_eductaion[]
+// }
+
+// model user_contact {
+//   user_contact_id   String    @id(map: "PK_user_contact_1") @default(uuid()) @db.Uuid
+//   user_id           String    @db.Uuid
+//   created_at        DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at        DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at        DateTime? @db.Timestamp(6)
+//   is_deleted        Boolean?  @default(false)
+//   contact_no        String    @db.VarChar(25)
+//   is_primary        Boolean?  @default(false)
+//   contact_extension String?   @db.VarChar(255)
+//   contact_type      String?   @db.VarChar(255)
+//   user              user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_1")
+// }
+
+// model user_email {
+//   user_email_id    String    @id(map: "PK_user_email_1") @default(uuid()) @db.Uuid
+//   user_id          String    @db.Uuid
+//   created_at       DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at       DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at       DateTime? @db.Timestamp(6)
+//   is_deleted       Boolean?  @default(false)
+//   email            String    @db.VarChar(255)
+//   is_primary       Boolean?  @default(false)
+//   email_department String?   @db.VarChar(255)
+//   user             user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_24")
+// }
+
+// model user_address {
+//   guid            String        @id(map: "PK_user_address_1") @default(uuid()) @db.Uuid
+//   country         String        @db.VarChar(255)
+//   province        String        @db.VarChar(255)
+//   city            String        @db.VarChar(255)
+//   postal_zip_code String        @map("postal/zip_code") @db.VarChar(25)
+//   street_no       String?       @db.VarChar(25)
+//   created_at      DateTime?     @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime?     @updatedAt @db.Timestamp(6)
+//   deleted_at      DateTime?     @db.Timestamp(6)
+//   is_deleted      Boolean?      @default(false)
+//   user_id         String        @db.Uuid
+//   address_type_id String?       @db.Uuid
+//   address_type    address_type? @relation(fields: [address_type_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "REL_78")
+//   user            user          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_37")
+// }
+
+// model user_channel {
+//   guid       String    @id(map: "PK_user_channel_1") @default(uuid()) @db.Uuid
+//   user_id    String    @db.Uuid
+//   channel_id String    @db.Uuid
+//   url        String    @db.VarChar(255)
+//   created_at DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at DateTime? @db.Timestamp(6)
+//   is_deleted Boolean?  @default(false)
+//   channel    channel   @relation(fields: [channel_id], references: [channel_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_36")
+//   user       user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_35")
+// }
+
+// model user_emergency_contact {
+//   guid         String    @id(map: "PK_user_emergency_contact_1") @default(uuid()) @db.Uuid
+//   user_id      String    @db.Uuid
+//   name         String    @db.VarChar(255)
+//   relationship String?   @db.VarChar(255)
+//   email        String?   @db.VarChar(255)
+//   mobile       String    @db.VarChar(25)
+//   created_at   DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at   DateTime? @updatedAt @db.Timestamp(6)
+//   user         user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "REL_14")
+// }
+
+// model cities {
+//   guid        String     @id @db.Uuid
+//   city_name   String     @db.VarChar(255)
+//   created_at  DateTime   @db.Timestamp(6)
+//   deleted_at  DateTime?  @db.Timestamp(6)
+//   is_deleted  Boolean
+//   province_id String?    @db.Uuid
+//   updated_at  DateTime   @db.Timestamp(6)
+//   provinces   provinces? @relation(fields: [province_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "fkcf2ndxcsekl26rrkb9egbhq20")
+// }
+
+// model countries {
+//   guid             String      @id @db.Uuid
+//   alpha2_code      String      @db.VarChar(2)
+//   alpha3_code      String      @db.VarChar(3)
+//   country_capital  String?     @db.VarChar(50)
+//   country_code     String?     @db.VarChar(255)
+//   country_iso_code String?     @db.VarChar(255)
+//   country_name     String      @unique(map: "uk_lx3r8cp4g7xkaqximbtxum74r") @db.VarChar(255)
+//   created_at       DateTime    @db.Timestamp(6)
+//   currency_code_a  String      @db.VarChar(5)
+//   currency_code_n  String      @db.VarChar(5)
+//   currency_name    String      @db.VarChar(50)
+//   currency_symbol  String      @db.VarChar(5)
+//   deleted_at       DateTime?   @db.Timestamp(6)
+//   is_deleted       Boolean
+//   latitude         String      @db.VarChar(255)
+//   longitude        String      @db.VarChar(255)
+//   updated_at       DateTime    @db.Timestamp(6)
+//   provinces        provinces[]
+// }
+
+// model provinces {
+//   guid          String     @id @db.Uuid
+//   alpha2_code   String     @db.VarChar(2)
+//   country_id    String?    @db.Uuid
+//   created_at    DateTime   @db.Timestamp(6)
+//   deleted_at    DateTime?  @db.Timestamp(6)
+//   is_deleted    Boolean
+//   province_name String     @db.VarChar(255)
+//   region_name   String     @db.VarChar(255)
+//   updated_at    DateTime   @db.Timestamp(6)
+//   countries     countries? @relation(fields: [country_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "fk48p9qkti5auert2gquvn76338")
+//   cities        cities[]
+// }
+
+// model user_document {
+//   user_document_id String  @id(map: "pk_user_document_1") @default(uuid()) @db.Uuid
+//   document_url     String  @db.VarChar(500)
+//   extension        String  @db.VarChar(25)
+//   user_id          String? @db.Uuid
+//   filename         String  @db.VarChar(250)
+//   description      String? @db.VarChar(255)
+//   status           String? @db.VarChar(255)
+//   user             user?   @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_document")
+// }
+
+// model user_portfolio {
+//   guid       String    @id(map: "pk_user_portfolio_1") @default(uuid()) @db.Uuid
+//   user_id    String    @db.Uuid
+//   url        String    @db.VarChar(255)
+//   is_image   Boolean
+//   created_at DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at DateTime? @updatedAt @db.Timestamp(6)
+//   deleted_at DateTime? @db.Time(6)
+//   is_deleted Boolean?  @default(false)
+//   filename   String    @db.VarChar(255)
+//   user       user      @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "rel_41")
+// }
+
+// model course {
+//   guid              String @id @db.Uuid
+//   short_description String @db.VarChar(255)
+// }
+
+// model document_statuses {
+//   guid   String @id @db.Uuid
+//   status String @db.VarChar(255)
+// }
+
+// model course_type {
+//   guid              String @id @db.Uuid
+//   short_description String @db.VarChar(255)
+// }
+
+// model education_level {
+//   guid              String @id @db.Uuid
+//   short_description String @db.VarChar(255)
+//   job               job[]
+// }
+
+// model institute_university {
+//   guid              String @id @db.Uuid
+//   short_description String @db.VarChar(255)
+// }
+
+// model skill {
+//   skill_id   String       @id @default(uuid()) @db.Uuid
+//   skill_name String       @db.VarChar(255)
+//   user_skill user_skill[]
+// }
+
+// model user_eductaion {
+//   guid                 String         @id @default(uuid()) @db.Uuid
+//   education_level      String         @db.VarChar(255)
+//   course               String         @db.VarChar(255)
+//   course_type          String         @db.VarChar(255)
+//   university_institute String         @db.VarChar(255)
+//   passing_year         String
+//   specialization       String         @db.VarChar(255)
+//   note                 String         @db.VarChar(500)
+//   industry_type_id     String?        @db.Uuid
+//   user_id              String         @db.Uuid
+//   resume               String         @db.VarChar(255)
+//   resume_filename      String?        @db.VarChar(255)
+//   industry_type        industry_type? @relation(fields: [industry_type_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_eduction_industry")
+//   user                 user           @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_eduction")
+// }
+
+// model user_skill {
+//   user_skill_id String @id @default(uuid()) @db.Uuid
+//   skill_id      String @db.Uuid
+//   user_id       String @db.Uuid
+//   skill         skill  @relation(fields: [skill_id], references: [skill_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_skill_1")
+//   user          user   @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_skill_2")
+// }
+
+// model subscription_plan {
+//   subscription_id   String    @id @default(uuid()) @db.Uuid
+//   subscription_name String    @db.VarChar
+//   price             Float
+//   dispaly_order     Int
+//   company           company[]
+// }
+
+// model department {
+//   department_id String   @id @default(uuid()) @db.Uuid
+//   title         String?  @db.VarChar
+//   listing       String?  @db.VarChar
+//   company_id    String?  @db.Uuid
+//   dispaly_order Int?
+//   company       company? @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_company_department")
+// }
+
+// model designation {
+//   designation_id String   @id @default(uuid()) @db.Uuid
+//   title          String?  @db.VarChar
+//   company_id     String?  @db.Uuid
+//   listing        String?  @db.VarChar
+//   dispaly_order  Int?
+//   company        company? @relation(fields: [company_id], references: [company_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_company_designation")
+// }
+
+// model salary_type {
+//   salary_type_id String  @id @db.Uuid
+//   title          String? @db.VarChar
+//   dispaly_order  Int?
+// }
+
+// model role_type {
+//   role_type_id  String  @id @db.Uuid
+//   title         String? @db.VarChar
+//   dispaly_order Int?
+// }
+
+// model contact_type {
+//   contact_type_id String  @id @db.Uuid
+//   title           String? @db.VarChar
+//   dispaly_order   Int?
+// }
+
+// model job {
+//   job_id                         String           @id @default(uuid()) @db.Uuid
+//   job_title                      String?          @db.VarChar
+//   created_at                     DateTime?        @default(now()) @db.Timestamp(6)
+//   updated_at                     DateTime?        @updatedAt @db.Timestamp(6)
+//   is_active                      Boolean?         @default(false)
+//   job_description                String?
+//   experience_required            Int?
+//   education_level_id             String?          @db.Uuid
+//   training_or_certificate        String?
+//   is_specific_address            Boolean?
+//   is_remote_work                 Boolean?
+//   recieve_through_email          Boolean?
+//   recieve_through_walkin         Boolean?
+//   walkin_start_date              DateTime?        @db.Timestamp(6)
+//   walkin_end_date                DateTime?        @db.Timestamp(6)
+//   is_resume_required             Boolean?
+//   user_id                        String           @db.Uuid
+//   skills_or_related_experience   String?
+//   job_start_date                 DateTime?        @db.Timestamp(6)
+//   no_of_working_hours            Int?
+//   minimum_salary                 Float?
+//   maximum_salary                 Float?
+//   currency                       String?          @db.VarChar(25)
+//   wage_frequency                 String?          @db.VarChar(25)
+//   no_of_candidates               Int?
+//   candidate_relocation_required  Boolean?
+//   relocation_provided_by_company Boolean?
+//   other_benefits                 String?
+//   supplimental_pays              String?
+//   job_types                      String?
+//   job_schedules                  String?
+//   job_expiry_date                DateTime?        @db.Date
+//   will_job_expire                Boolean?
+//   working_hour_type              String?          @db.VarChar(25)
+//   is_job_start_date              Boolean?
+//   education_level                education_level? @relation(fields: [education_level_id], references: [guid], onDelete: Cascade, onUpdate: NoAction, map: "fk_education_job")
+//   user                           user             @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_user_job")
+//   job_address                    job_address?
+//   job_contact                    job_contact[]
+// }
+
+// model job_address {
+//   guid            String    @id(map: "pk_job_address_1") @default(uuid()) @db.Uuid
+//   country         String    @db.VarChar(255)
+//   province        String    @db.VarChar(255)
+//   city            String    @db.VarChar(255)
+//   postal_zip_code String    @map("postal/zip_code") @db.VarChar(25)
+//   street_no       String?   @db.VarChar(25)
+//   created_at      DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime? @updatedAt @db.Timestamp(6)
+//   job_id          String    @unique @db.Uuid
+//   address_type_id String?   @db.Uuid
+//   job             job       @relation(fields: [job_id], references: [job_id], onDelete: NoAction, onUpdate: NoAction, map: "job_address_fk")
+// }
+
+// model job_contact {
+//   guid         String  @id(map: "PK_job_contact") @default(uuid()) @db.Uuid
+//   phone_number String? @db.VarChar(25)
+//   designation  String  @db.VarChar(25)
+//   name         String  @db.VarChar(25)
+//   job_id       String  @db.Uuid
+//   email        String  @db.VarChar(255)
+//   job          job     @relation(fields: [job_id], references: [job_id], onDelete: NoAction, onUpdate: NoAction, map: "job_contact_fk")
+// }
+
+// model project {
+//   guid               String              @id(map: "PK_project_1") @default(uuid()) @db.Uuid
+//   project_name       String              @db.VarChar(255)
+//   industry_type_id   String?             @db.Uuid
+//   company_name       String              @db.VarChar(255)
+//   project_start_date DateTime?           @db.Timestamp(6)
+//   projecr_end_date   DateTime?           @db.Timestamp(6)
+//   project_manager_id    String?             @db.Uuid
+//   project_details    String?             @db.VarChar(1000)
+//   company_id         String              @db.Uuid
+//   project_status_id  String?             @db.Uuid
+//   company            company             @relation(fields: [company_id], references: [company_id], onDelete: NoAction, onUpdate: NoAction, map: "REL_3")
+//   industry_type      industry_type?      @relation(fields: [industry_type_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "industry_type_fk")
+//   project_status     project_status?     @relation(fields: [project_status_id], references: [guid_], onDelete: NoAction, onUpdate: NoAction, map: "REL_11")
+//   project_documents  project_documents[]
+//   tasks              tasks[]
+// }
+
+// model project_address {
+//   guid            String    @id(map: "pk_project_address_1")  @default(uuid()) @db.Uuid
+//   country         String    @db.VarChar(255)
+//   province        String?    @db.VarChar(255)
+//   city            String?    @db.VarChar(255)
+//   postal_zip_code String    @map("postal/zip_code") @db.VarChar(25)
+//   street_no       String?    @db.VarChar(25)
+//   created_at      DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime? @db.Timestamp(6)
+//   project_id      String    @db.Uuid
+//   building        String?   @db.VarChar(255)
+//   additional_location_details String? @db.VarChar(255)
+// }
+
+// model project_documents {
+//   guid         String  @id(map: "PK_project_documents_1") @default(uuid()) @db.Uuid
+//   project_id   String  @db.Uuid
+//   document_url String  @db.VarChar(255)
+//   file_name    String  @db.VarChar(255)
+//   extension    String? @db.VarChar(255)
+//   description  String? @db.VarChar(255)
+//   project      project @relation(fields: [project_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "projecr_document_fk")
+// }
+
+// model project_status {
+//   guid_             String    @id(map: "PK_project_status_1") @map("guid ") @default(uuid()) @db.Uuid
+//   short_description String    @db.VarChar(255)
+//   project           project[]
+// }
+
+// model task_address {
+//   guid            String    @id(map: "pk_task_address_1") @default(uuid()) @db.Uuid
+//   country         String    @db.VarChar(255)
+//   province        String?    @db.VarChar(255)
+//   city            String?    @db.VarChar(255)
+//   postal_zip_code String    @map("postal/zip_code") @db.VarChar(25)
+//   street_no       String?   @db.VarChar(25)
+//   created_at      DateTime? @default(now()) @db.Timestamp(6)
+//   updated_at      DateTime? @db.Timestamp(6)
+//   task_id         String    @db.Uuid
+//   building        String?   @db.VarChar(255)
+//   tasks           tasks     @relation(fields: [task_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_12")
+// }
+
+// model task_user {
+//   guid    String  @id(map: "PK_task_user_1") @default(uuid()) @db.Uuid
+//   task_id String? @db.Uuid
+//   user_id String? @db.Uuid
+//   tasks   tasks?  @relation(fields: [task_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_9")
+//   user    user?   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "REL_10")
+// }
+
+// model tasks {
+//   guid                String         @id(map: "PK_Tasks_1") @default(uuid()) @db.Uuid
+//   project_id          String?        @db.Uuid
+//   task_start_date     DateTime?      @db.Timestamp(6)
+//   task_end_date       DateTime?      @db.Timestamp(6)
+//   task_priority_id       String?        @db.VarChar(25)
+//   task_definition     String?
+//   team_id             String?        @db.Uuid
+//   task_manager_id     String?        @db.Uuid
+//   salary              Float?
+//   is_project_location Boolean?
+//   project             project?       @relation(fields: [project_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_2")
+//   teams               teams?         @relation(fields: [team_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_8")
+//   task_address        task_address[]
+//   task_user           task_user[]
+// }
+
+// model team_user {
+//   guid    String  @id(map: "PK_team_user_1") @default(uuid()) @db.Uuid
+//   team_id String? @db.Uuid
+//   user_id String? @db.Uuid
+//   teams   teams?  @relation(fields: [team_id], references: [guid], onDelete: NoAction, onUpdate: NoAction, map: "REL_4")
+//   user    user?   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "REL_5")
+// }
+
+// model teams {
+//   guid       String      @id(map: "PK_Teams_1") @default(uuid()) @db.Uuid
+//   project_id String      @db.Uuid
+//   team_name  String      @db.VarChar(255)
+//   tasks      tasks[]
+//   team_user  team_user[]
+// }
+
+
+// model task_priority {
+//   priority_id               String   @id @default(uuid())  @db.Uuid
+//   short_description         String?  @db.VarChar
+//   dispaly_order             Int?
+// }
+

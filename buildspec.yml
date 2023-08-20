@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    commands:
+       - npm install
+       - npm install -g serverless
+  build:
+    commands:
+      - serverless deploy
+      
+      
+cache:
+  paths:
+    -node_modules
